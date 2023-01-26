@@ -71,3 +71,26 @@ and "root" (because it's based on buildroot).
 It also contains "teste", which is the Italian word for "heads". In some way,
 we're running run the tests over multiple heads.
 
+
+### History of customizations
+
+These are the notes of the customizations:
+- Installed sshd and a very unsecure server configuration
+- Set static user networking. Customized qemu script
+- Error /sys/kernel/btf/vmlinux file not found
+  Solution: enable BTF
+- Error btf not being generated in 5.19
+  Solution: downgrade pahole to 1.22
+
+- Problem: changing frament config not doing anything
+  Solution: wans't updating dependencies
+
+- Problem: missing files
+  Solution: automount fs in fstab? TODO
+
+- Problem:
+ failed program load lsm path_mknod
+ Unknown BTF type `bpf_lsm_path_mknod`
+
+
+TODO: check without LSM
