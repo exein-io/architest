@@ -92,5 +92,17 @@ These are the notes of the customizations:
  failed program load lsm path_mknod
  Unknown BTF type `bpf_lsm_path_mknod`
 
+- Problem:
+  0: failed program attach kprobe security_path_mknod
+  1: `/sys/bus/event_source/devices/kprobe/type`
+  2: No such file or directory (os error 2)
+  at /home/matteo/projects/pulsar/bpf-common/src/test_runner.rs:118:64
+  Solution:
+  CONFIG_KPROBES=y
 
-TODO: check without LSM
+- Problem:
+  failed program attach kprobe security_path_mknod `perf_event_open` failed
+  No such file or directory (os error 2)
+  /home/matteo/projects/pulsar/bpf-common/src/test_runner.rs:118:64
+  Solution:
+  CONFIG_SECURITY_PATH=y
