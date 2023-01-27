@@ -86,7 +86,7 @@ These are the notes of the customizations:
   Solution: wans't updating dependencies
 
 - Problem: missing files
-  Solution: automount fs in fstab? TODO
+  Solution: automount fstab
 
 - Problem:
  failed program load lsm path_mknod
