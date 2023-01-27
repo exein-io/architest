@@ -1,0 +1,1 @@
+source "$BR2_EXTERNAL_testeroot_PATH/package/paholeold/Config.in.host"
