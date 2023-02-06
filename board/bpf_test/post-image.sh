@@ -23,7 +23,7 @@ QEMU_CMD_LINE=$(sed -r ':a; /\\$/N; s/\\\n//; s/\t/ /; ta; /# '${DEFCONFIG_NAME}
 
 # Replace original networking string:w
 NETWORK_OPTIONS="-nic user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:3366-10.0.2.14:22"
-QEMU_CMD_LINE="$(echo "${QEMU_CMD_LINE}" | sed 's/-net [a-zA-Z0-9,=]*//g') ${NETWORK_OPTIONS}"
+QEMU_CMD_LINE="$(echo "${QEMU_CMD_LINE}" | sed 's/-net [a-zA-Z0-9,=]*//g') ${NETWORK_OPTIONS} -m 1024M"
 
 if [ -z "${QEMU_CMD_LINE}" ]; then
     # No Qemu cmd line found, can't test.
