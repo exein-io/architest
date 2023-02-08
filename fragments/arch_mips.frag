@@ -1,0 +1,5 @@
+BR2_mips64=y
+BR2_MIPS_NABI64=y
+BR2_LINUX_KERNEL_CUSTOM_CONFIG_FILE="board/qemu/mips64-malta/linux.config"
+BR2_LINUX_KERNEL_VMLINUX=y
+

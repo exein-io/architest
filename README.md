@@ -64,6 +64,10 @@ Host qemu
   LogLevel QUIET
 ```
 
+## Fragments folder
+
+TODO: document folder
+
 ## Name
 
 Testeroot is a composition of "tester" (because it's useful for testing software)
