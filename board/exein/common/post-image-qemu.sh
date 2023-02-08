@@ -8,11 +8,11 @@ echo $PWD
 
 QEMU_BOARD_DIR="$PWD/board/qemu"
 DEFCONFIG_NAME=qemu_"$(basename $2)"
-README_FILES="${QEMU_BOARD_DIR}/*/readme.txt"
+README_FILES="${BR2_EXTERNAL_testeroot_PATH}/board/bpf_test/readme.txt"
 START_QEMU_SCRIPT="${BINARIES_DIR}/start-qemu.sh"
 
 if [[ "${DEFCONFIG_NAME}" =~ ^"qemu_*" ]]; then
-    # Not a Qemu defconfig, can't test.
+    echo "Not a Qemu defconfig, can't test."
     exit 0
 fi
 
@@ -20,16 +20,10 @@ fi
 # Qemu command line on multilines using back slash are accepted.
 QEMU_CMD_LINE=$(sed -r ':a; /\\$/N; s/\\\n//; s/\t/ /; ta; /# '${DEFCONFIG_NAME}'$/!d; s/#.*//' ${README_FILES})
 
-
-# Replace original networking string:w
-NETWORK_OPTIONS="-nic user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:3366-10.0.2.14:22"
-QEMU_CMD_LINE="$(echo "${QEMU_CMD_LINE}" | sed 's/-net [a-zA-Z0-9,=]*//g') ${NETWORK_OPTIONS} -m 1024M"
-
 if [ -z "${QEMU_CMD_LINE}" ]; then
-    # No Qemu cmd line found, can't test.
+    echo "No Qemu cmd line found, can't test."
     exit 0
 fi
-
 # Remove output/images path since the script will be in
 # the same directory as the kernel and the rootfs images.
 QEMU_CMD_LINE="${QEMU_CMD_LINE//output\/images\//}"
