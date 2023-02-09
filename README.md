@@ -6,6 +6,38 @@ test software across a wide range of Linux kernels and architectures.
 Our use-case is running a test-suite of eBPF programs over multiple machines
 for quickly spotting regressions.
 
+# Getting started with pre-compiled machines
+
+Download a ready to use virtual machine [from our release page](https://github.com/Exein-io/testeroot/releases).
+
+```
+wget https://github.com/Exein-io/testeroot/releases/download/0.1/build_x86_64_5.15.tar.gz
+tar -xzf build_x86_64_6.0.tar.gz
+cd build_x86_64_6.0/images/
+./start-qemu.sh
+```
+
+The machine can then be reached with SSH.
+
+```
+ssh root@localhost -p 3366
+```
+
+# Building new machines
+
+If you need some sort of customization or the machine you need lacks a prebuilt binary,
+you'll have to clone the project and build from source.
+This repository is just a collection of configuration files for buildroot, so should you
+probably consult [its documentation](https://buildroot.org/downloads/manual/manual.html).
+
+```
+git clone --recurse-submodules git@github.com:Exein-io/testeroot.git
+```
+
+```sh
+./scripts/bootstrap.sh x86_64 5.15
+```
+
 ## How to use
 
 ### Customizations
@@ -16,17 +48,9 @@ See <https://buildroot.org/downloads/manual/manual.html#outside-br-custom>
 
 ### Build directories
 
-The naming scheme is `build_<arch>_<kernel version>`.
-
 We build out of tree to maintain multiple output directories.
 See <https://buildroot.org/downloads/manual/manual.html#_building_out_of_tree>
 
-```sh
-mkdir build_x86_64_5.15
-cd build_x86_64_5.15
-make O=$PWD BR2_EXTERNAL=$(realpath ../) -C path/to/buildroot menuconfig
-cat .config
-```
 
 
 ### Defconfig handling

@@ -1,4 +1,5 @@
 BR2_x86_64=y
+BR2_LINUX_KERNEL_USE_CUSTOM_CONFIG=y
 BR2_LINUX_KERNEL_CUSTOM_CONFIG_FILE="board/qemu/x86_64/linux.config"
 
 # Enable the upstream buildroot qemu post-build script
