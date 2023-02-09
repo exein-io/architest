@@ -3,46 +3,63 @@
 # This is a customization of buildroot's board/qemu/post-image.sh:
 # - Networking has SSH port forwarded to host:3366
 
-set -x
-echo $PWD
+echo $2
 
-QEMU_BOARD_DIR="$PWD/board/qemu"
-DEFCONFIG_NAME=qemu_"$(basename $2)"
-README_FILES="${BR2_EXTERNAL_testeroot_PATH}/board/bpf_test/readme.txt"
 START_QEMU_SCRIPT="${BINARIES_DIR}/start-qemu.sh"
 
-if [[ "${DEFCONFIG_NAME}" =~ ^"qemu_*" ]]; then
-    echo "Not a Qemu defconfig, can't test."
-    exit 0
-fi
-
-# Search for "# qemu_*_defconfig" tag in all readme.txt files.
-# Qemu command line on multilines using back slash are accepted.
-QEMU_CMD_LINE=$(sed -r ':a; /\\$/N; s/\\\n//; s/\t/ /; ta; /# '${DEFCONFIG_NAME}'$/!d; s/#.*//' ${README_FILES})
-
-if [ -z "${QEMU_CMD_LINE}" ]; then
-    echo "No Qemu cmd line found, can't test."
-    exit 0
-fi
-# Remove output/images path since the script will be in
-# the same directory as the kernel and the rootfs images.
-QEMU_CMD_LINE="${QEMU_CMD_LINE//output\/images\//}"
-
-# Remove -serial stdio if present, keep it as default args
-DEFAULT_ARGS="$(sed -r -e '/-serial stdio/!d; s/.*(-serial stdio).*/\1/' <<<"${QEMU_CMD_LINE}")"
-QEMU_CMD_LINE="${QEMU_CMD_LINE//-serial stdio/}"
-
-# Remove any string before qemu-system-*
-QEMU_CMD_LINE="$(sed -r -e 's/^.*(qemu-system-)/\1/' <<<"${QEMU_CMD_LINE}")"
-
-# Disable graphical output and redirect serial I/Os to console
-case ${DEFCONFIG_NAME} in
-  (qemu_sh4eb_r2d_defconfig|qemu_sh4_r2d_defconfig)
-    # Special case for SH4
-    SERIAL_ARGS="-serial stdio -display none"
+QEMU_COMMON="\\
+ -m 1024M \\
+ -nic user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:3366-10.0.2.14:22 \\
+ -nographic
+"
+case ${2} in
+  x86_64)
+    QEMU_CMD=qemu-system-x86_64
+    QEMU_ARGS="
+      -M pc
+      -kernel output/images/bzImage
+      -drive file=output/images/rootfs.ext2,if=virtio,format=raw
+      -append \"rootwait root=/dev/vda console=tty1 console=ttyS0\"
+    "
     ;;
-  (*)
-    SERIAL_ARGS="-nographic"
+
+  aarch64)
+    QEMU_CMD=qemu-system-aarch64
+    QEMU_ARGS="\\
+      -M virt \\
+      -cpu cortex-a53 \\
+      -smp 1 \\
+      -kernel Image \\
+      -append \"rootwait root=/dev/vda console=ttyAMA0\" \\
+      -drive file=rootfs.ext2,if=none,format=raw,id=hd0 \\
+      -device virtio-blk-device,drive=hd0"
+    ;;
+
+  mips)
+    QEMU_CMD=qemu-system-mips64
+    QEMU_ARGS="\\
+      -M malta \\
+      -kernel vmlinux \\
+      -serial stdio \\
+      -drive file=rootfs.ext2,format=raw \\
+      -append \"rootwait root=/dev/sda\""
+    ;;
+
+  riscv64)
+    QEMU_CMD=qemu-system-riscv64
+    QEMU_ARGS="\\
+      -M virt \\
+      -bios fw_jump.elf \\
+      -kernel Image \\
+      -append \"rootwait root=/dev/vda ro\" \\
+      -drive file=rootfs.ext2,format=raw,id=hd0  \\
+      -device virtio-blk-device,drive=hd0 -nographic"
+    ;;
+
+  *)
+    echo "Missing architecture argument"
+    echo "It should be set with the BR2_ROOTFS_POST_SCRIPT_ARGS config"
+    exit 1
     ;;
 esac
 
@@ -52,14 +69,8 @@ cat <<-_EOF_ > "${START_QEMU_SCRIPT}"
 	BINARIES_DIR="\${0%/*}/"
 	cd \${BINARIES_DIR}
 
-	if [ "\${1}" = "serial-only" ]; then
-	    EXTRA_ARGS='${SERIAL_ARGS}'
-	else
-	    EXTRA_ARGS='${DEFAULT_ARGS}'
-	fi
-
 	export PATH="${HOST_DIR}/bin:\${PATH}"
-	exec ${QEMU_CMD_LINE} \${EXTRA_ARGS}
+	exec ${QEMU_CMD} ${QEMU_ARGS} ${QEMU_COMMON}
 	)
 _EOF_
 
