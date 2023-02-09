@@ -48,10 +48,13 @@ See <https://buildroot.org/downloads/manual/manual.html#outside-br-custom>
 
 ### Build directories
 
-We build out of tree to maintain multiple output directories.
-See <https://buildroot.org/downloads/manual/manual.html#_building_out_of_tree>
+All the build artifacts will go in the `build` directory. Each target will have
+its own `build/<arch>_<kernel>/` folder.
 
+To save space and time, all the targets will share the downloaded files in `build/download`.
 
+In order to hame multiple output directories, we use the buildroot "build out of tree" feature.
+For more details, see <https://buildroot.org/downloads/manual/manual.html#_building_out_of_tree>
 
 ### Defconfig handling
 

@@ -20,6 +20,9 @@ BR2_LINUX_KERNEL_NEEDS_HOST_PAHOLE=y
 BR2_LINUX_KERNEL=y
 BR2_PACKAGE_HOST_LINUX_HEADERS_CUSTOM_5_15=y
 
+# Share downloaded packages between builds
+BR2_DL_DIR="$(BR2_EXTERNAL_testeroot_PATH)/build/download/"
+
 # Needed?
 # BR2_LINUX_KERNEL_NEEDS_HOST_LIBELF=y
 
