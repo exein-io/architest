@@ -9,18 +9,17 @@ START_QEMU_SCRIPT="${BINARIES_DIR}/start-qemu.sh"
 
 QEMU_COMMON="\\
  -m 1024M \\
- -nic user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:3366-10.0.2.14:22 \\
- -nographic
-"
+ -nographic"
+QEMU_NETWORK="\\
+  -nic user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:3366-10.0.2.14:22"
 case ${2} in
   x86_64)
     QEMU_CMD=qemu-system-x86_64
-    QEMU_ARGS="
-      -M pc
-      -kernel output/images/bzImage
-      -drive file=output/images/rootfs.ext2,if=virtio,format=raw
-      -append \"rootwait root=/dev/vda console=tty1 console=ttyS0\"
-    "
+    QEMU_ARGS="\\
+      -M pc \\
+      -kernel output/images/bzImage \\
+      -drive file=output/images/rootfs.ext2,if=virtio,format=raw \\
+      -append \"rootwait root=/dev/vda console=tty1 console=ttyS0\""
     ;;
 
   aarch64)
@@ -49,11 +48,13 @@ case ${2} in
     QEMU_CMD=qemu-system-riscv64
     QEMU_ARGS="\\
       -M virt \\
-      -bios fw_jump.elf \\
       -kernel Image \\
       -append \"rootwait root=/dev/vda ro\" \\
       -drive file=rootfs.ext2,format=raw,id=hd0  \\
       -device virtio-blk-device,drive=hd0 -nographic"
+      QEMU_NETWORK="\\
+        -netdev user,id=net0,hostfwd=tcp:127.0.0.1:3366-10.0.2.14:22 \\
+        -device virtio-net-device,netdev=net0"
     ;;
 
   *)
@@ -70,7 +71,7 @@ cat <<-_EOF_ > "${START_QEMU_SCRIPT}"
 	cd \${BINARIES_DIR}
 
 	export PATH="${HOST_DIR}/bin:\${PATH}"
-	exec ${QEMU_CMD} ${QEMU_ARGS} ${QEMU_COMMON}
+	exec ${QEMU_CMD} ${QEMU_ARGS} ${QEMU_COMMON} ${QEMU_NETWORK}
 	)
 _EOF_
 

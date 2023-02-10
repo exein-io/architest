@@ -1,0 +1,7 @@
+BR2_riscv=y
+BR2_RISCV_64=y
+BR2_LINUX_KERNEL_USE_ARCH_DEFAULT_CONFIG=y
+
+# Set architecture for post-image-qemu.sh
+BR2_ROOTFS_POST_SCRIPT_ARGS="riscv64"
+BR2_TARGET_ROOTFS_EXT2_SIZE="120M"
