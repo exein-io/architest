@@ -17,8 +17,8 @@ case ${2} in
     QEMU_CMD=qemu-system-x86_64
     QEMU_ARGS="\\
       -M pc \\
-      -kernel output/images/bzImage \\
-      -drive file=output/images/rootfs.ext2,if=virtio,format=raw \\
+      -kernel bzImage \\
+      -drive file=rootfs.ext2,if=virtio,format=raw \\
       -append \"rootwait root=/dev/vda console=tty1 console=ttyS0\""
     ;;
 
