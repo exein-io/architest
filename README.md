@@ -95,6 +95,19 @@ Host qemu
 
 TODO: document folder
 
+## Advanced topics
+
+### Trying a custom kernel
+
+Whether to test a particular commit or a local change, we may want to compile
+a custom kernel.
+
+Bootstrap a testeroot build directory as usual. Then edit `local.mk` and make
+it point to your local clone:
+```
+LINUX_OVERRIDE_SRCDIR=/home/dev/projects/linux/
+```
+
 ## Name
 
 Testeroot is a composition of "tester" (because it's useful for testing software)
