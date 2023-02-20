@@ -40,6 +40,35 @@ git clone --recurse-submodules git@github.com:Exein-io/testeroot.git
 
 ## How to use
 
+### Fragments folder and the bootstrap script
+
+The `fragments/` folder contains the partial configurations:
+
+- [fragments/common.frag](./fragments/common.frag) contains shared configurations
+- [fragments/linux/](./fragments/linux/) contains kernel specific configurations
+- [fragments/arch/](./fragments/arch/) contains architecture specific configurations
+
+The bootstrap script will merge them together to produce a working
+configuration.
+
+```
+$ ./scripts/bootstrap.sh 
+Usage: ./scripts/bootstrap.sh <architecture> <linux_version>
+
+Available architectures:
+- aarch64
+- mips
+- riscv64
+- x86_64
+
+Available linux versions:
+- 5.10
+- 5.13
+- 5.15
+- 5.5
+- 6.0
+```
+
 ### Customizations
 
 We've configured buildroot to make it fit for use-case. These can be included
@@ -90,10 +119,6 @@ Host qemu
   UserKnownHostsFile /dev/null
   LogLevel QUIET
 ```
-
-## Fragments folder
-
-TODO: document folder
 
 ## Advanced topics
 
