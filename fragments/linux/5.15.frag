@@ -1,10 +1,4 @@
 BR2_LINUX_KERNEL_CUSTOM_VERSION=y
 BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE="5.15.18"
 
-# Kernel 5.15 failed to build with pahole 2.24, downgrading to 2.22
-BR2_PACKAGE_HOST_PAHOLEOLD=y
-# This is a hack because I didn't find a way to override pahole with the old version:
-# - I've added a host-paholeold package with pahole 2.22
-# - I make sure to build it after host-pahole, so that it overridedes host/usr/bin/pahole
-LINUX_DEPENDENCIES+=host-paholeold
-HOST_PAHOLEOLD_DEPENDENCIES+=host-pahole
+BR2_PACKAGE_OVERRIDE_FILE="$(BR2_EXTERNAL_testeroot_PATH)/fragments/package_overrides/pahole_122.mk"

@@ -1,8 +1,6 @@
 # Add common overlay fs
 BR2_ROOTFS_OVERLAY="$(BR2_EXTERNAL_testeroot_PATH)/board/exein/common/overlay/"
 
-# Use headers for 5.15
-BR2_PACKAGE_HOST_LINUX_HEADERS_CUSTOM_5_15=y
 
 # Adds the start_qemu.sh script
 BR2_ROOTFS_POST_IMAGE_SCRIPT="$(BR2_EXTERNAL_testeroot_PATH)/board/exein/common/post-image-qemu.sh"
@@ -18,7 +16,10 @@ BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="$(BR2_EXTERNAL_testeroot_PATH)/board/exe
 BR2_LINUX_KERNEL_NEEDS_HOST_PAHOLE=y
 
 BR2_LINUX_KERNEL=y
-BR2_PACKAGE_HOST_LINUX_HEADERS_CUSTOM_5_15=y
+
+# Use headers from the oldest kernel used
+BR2_KERNEL_HEADERS_AS_KERNEL=n
+BR2_KERNEL_HEADERS_5_4=y
 
 # Share downloaded packages between builds
 BR2_DL_DIR="$(BR2_EXTERNAL_testeroot_PATH)/build/download/"
