@@ -1,0 +1,39 @@
+Don't link thunk_64 unless CONFIG_PREEMPTION is set.
+
+See:
+https://github.com/containers/libkrunfw/issues/4
+https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1911359
+
+
+diff --git a/arch/x86/um/Makefile b/arch/x86/um/Makefile
+index 77f70b969d14..3113800da63a 100644
+--- a/arch/x86/um/Makefile
++++ b/arch/x86/um/Makefile
+@@ -27,7 +27,8 @@ else
+ 
+ obj-y += syscalls_64.o vdso/
+ 
+-subarch-y = ../lib/csum-partial_64.o ../lib/memcpy_64.o ../entry/thunk_64.o
++subarch-y = ../lib/csum-partial_64.o ../lib/memcpy_64.o
++subarch-$(CONFIG_PREEMPTION) += ../entry/thunk_64.o
+ 
+ endif
+ 
+
+--- a/arch/x86/entry/Makefile	2023-02-23 11:52:25.909630805 +0100
++++ b/arch/x86/entry/Makefile	2023-02-23 11:53:05.689845919 +0100
+@@ -7,11 +7,13 @@
+ 
+ CFLAGS_syscall_64.o		+= $(call cc-option,-Wno-override-init,)
+ CFLAGS_syscall_32.o		+= $(call cc-option,-Wno-override-init,)
+-obj-y				:= entry_$(BITS).o thunk_$(BITS).o syscall_$(BITS).o
++obj-y				:= entry_$(BITS).o syscall_$(BITS).o
++obj-y				:= entry_$(BITS).o syscall_$(BITS).o
+ obj-y				+= common.o
+ 
+ obj-y				+= vdso/
+ obj-y				+= vsyscall/
+ 
++obj-$(CONFIG_PREEMPTION)>+= thunk_$(BITS).o
+ obj-$(CONFIG_IA32_EMULATION)	+= entry_64_compat.o syscall_32.o
+ 

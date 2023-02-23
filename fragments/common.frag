@@ -10,6 +10,7 @@ BR2_PACKAGE_BUSYBOX_CONFIG="$(BR2_EXTERNAL_testeroot_PATH)/board/exein/common/bu
 
 
 BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="$(BR2_EXTERNAL_testeroot_PATH)/board/exein/common/linux.config"
+BR2_GLOBAL_PATCH_DIR="$(BR2_EXTERNAL_testeroot_PATH)/patches/"
 
 
 # Add host pahole tool (needed to extract BPF info)
