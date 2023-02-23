@@ -4,9 +4,11 @@ tempdir="$(mktemp -d)"
 echo "Creating files in $tempdir"
 
 set -e
-set -x
 
-for i in build_*;
+for i in build/*/images;
 do
-  tar czf "$tempdir/$i.tar.gz" $i/images
+  target=$(basename $(dirname "$i"))
+  output="$tempdir/$target.tar.gz"
+  tar czf "$output" "$i"
+  du -sh $output
 done
