@@ -1,6 +1,6 @@
-# Testeroot
+# Architest
 
-Testeroot is a collection of scripts and configurations for making it easier to
+Architest is a collection of scripts and configurations for making it easier to
 test software across a wide range of Linux kernels and architectures.
 
 Our use-case is running a test-suite of eBPF programs over multiple machines
@@ -8,10 +8,10 @@ for quickly spotting regressions.
 
 ## Getting started with pre-compiled machines
 
-Download a ready to use virtual machine [from our release page](https://github.com/Exein-io/testeroot/releases).
+Download a ready to use virtual machine [from our release page](https://github.com/Exein-io/architest/releases).
 
 ```
-wget https://github.com/Exein-io/testeroot/releases/download/0.1/build_x86_64_5.15.tar.gz
+wget https://github.com/Exein-io/architest/releases/download/0.1/build_x86_64_5.15.tar.gz
 tar -xzf build_x86_64_6.0.tar.gz
 cd build_x86_64_6.0/images/
 ./start-qemu.sh
@@ -31,7 +31,7 @@ This repository is just a collection of configuration files for buildroot, you'l
 need to consult [its documentation](https://buildroot.org/downloads/manual/manual.html).
 
 ```
-git clone --recurse-submodules git@github.com:Exein-io/testeroot.git
+git clone --recurse-submodules git@github.com:Exein-io/architest.git
 ```
 
 After cloning it you can setup a build folder. `make` will compile the kernel and the
@@ -97,7 +97,7 @@ For more details, see <https://buildroot.org/downloads/manual/manual.html#_build
 Whether to test a particular commit or a local change, we may want to compile
 a custom kernel.
 
-Bootstrap a testeroot build directory as usual. Then edit `local.mk` and make
+Bootstrap a architest build directory as usual. Then edit `local.mk` and make
 it point to your local clone:
 ```
 LINUX_OVERRIDE_SRCDIR=/home/dev/projects/linux/
@@ -111,7 +111,7 @@ override that settings to work-around a compilation issue with pahole.
 
 ### Buildroot linking
 
-We include buildroot as a submodule. Than we include testeroot configurations
+We include buildroot as a submodule. Than we include architest configurations
 by using the `BR2_EXTERNAL` variable.
 See <https://buildroot.org/downloads/manual/manual.html#outside-br-custom>
 
@@ -150,11 +150,4 @@ related folders:
 - `/sys/kernel/debug`
 - `/sys/kernel/tracing`
 - `/sys/kernel/security`
-
-## Name
-
-Testeroot is a composition of "tester" (because it's useful for testing software)
-and "root" (because it's based on buildroot).
-It also contains "teste", which is the Italian word for "heads". In some way,
-we're running run the tests over multiple heads.
 

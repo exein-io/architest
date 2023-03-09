@@ -1,16 +1,16 @@
 # Add common overlay fs
-BR2_ROOTFS_OVERLAY="$(BR2_EXTERNAL_testeroot_PATH)/board/exein/common/overlay/"
+BR2_ROOTFS_OVERLAY="$(BR2_EXTERNAL_architest_PATH)/board/exein/common/overlay/"
 
 
 # Adds the start_qemu.sh script
-BR2_ROOTFS_POST_IMAGE_SCRIPT="$(BR2_EXTERNAL_testeroot_PATH)/board/exein/common/post-image-qemu.sh"
+BR2_ROOTFS_POST_IMAGE_SCRIPT="$(BR2_EXTERNAL_architest_PATH)/board/exein/common/post-image-qemu.sh"
 
 # Customize busybox
-BR2_PACKAGE_BUSYBOX_CONFIG="$(BR2_EXTERNAL_testeroot_PATH)/board/exein/common/busybox.config"
+BR2_PACKAGE_BUSYBOX_CONFIG="$(BR2_EXTERNAL_architest_PATH)/board/exein/common/busybox.config"
 
 
-BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="$(BR2_EXTERNAL_testeroot_PATH)/board/exein/common/linux.config"
-BR2_GLOBAL_PATCH_DIR="$(BR2_EXTERNAL_testeroot_PATH)/patches/"
+BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="$(BR2_EXTERNAL_architest_PATH)/board/exein/common/linux.config"
+BR2_GLOBAL_PATCH_DIR="$(BR2_EXTERNAL_architest_PATH)/patches/"
 
 
 # Add host pahole tool (needed to extract BPF info)
@@ -23,7 +23,7 @@ BR2_KERNEL_HEADERS_AS_KERNEL=n
 BR2_KERNEL_HEADERS_5_4=y
 
 # Share downloaded packages between builds
-BR2_DL_DIR="$(BR2_EXTERNAL_testeroot_PATH)/build/download/"
+BR2_DL_DIR="$(BR2_EXTERNAL_architest_PATH)/build/download/"
 
 # Needed?
 # BR2_LINUX_KERNEL_NEEDS_HOST_LIBELF=y

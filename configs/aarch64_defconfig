@@ -1,4 +1,4 @@
-BR2_ROOTFS_OVERLAY="$(BR2_EXTERNAL_testeroot_PATH)/board/bpf_test/overlay/"
+BR2_ROOTFS_OVERLAY="$(BR2_EXTERNAL_architest_PATH)/board/bpf_test/overlay/"
 
 # Architecture
 BR2_aarch64=y
@@ -6,12 +6,12 @@ BR2_cortex_a53=y
 
 BR2_PACKAGE_HOST_LINUX_HEADERS_CUSTOM_5_15=y
 BR2_SYSTEM_DHCP="eth0"
-BR2_ROOTFS_POST_IMAGE_SCRIPT="$(BR2_EXTERNAL_testeroot_PATH)/board/bpf_test/post-image.sh"
-BR2_PACKAGE_BUSYBOX_CONFIG="$(BR2_EXTERNAL_testeroot_PATH)/configs/busybox.config"
+BR2_ROOTFS_POST_IMAGE_SCRIPT="$(BR2_EXTERNAL_architest_PATH)/board/bpf_test/post-image.sh"
+BR2_PACKAGE_BUSYBOX_CONFIG="$(BR2_EXTERNAL_architest_PATH)/configs/busybox.config"
 BR2_ROOTFS_POST_SCRIPT_ARGS="$(BR2_DEFCONFIG)"
 
 # Custom BTF kernel customizations
-BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="$(BR2_EXTERNAL_testeroot_PATH)/board/bpf_test/linux.config"
+BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="$(BR2_EXTERNAL_architest_PATH)/board/bpf_test/linux.config"
 BR2_LINUX_KERNEL_NEEDS_HOST_PAHOLE=y
 
 # Kernel 5.15 failed to build with pahole 2.24, downgrading to 2.22
@@ -24,7 +24,7 @@ HOST_PAHOLEOLD_DEPENDENCIES+=host-pahole
 
 # BR2_PACKAGE_HOST_ELFUTILS=y
 # BR2_PACKAGE_HOST_LIBBPF=y
-# BR2_PACKAGE_OVERRIDE_FILE="$(BR2_EXTERNAL_testeroot_PATH)/package_overrides/pahole.mk"
+# BR2_PACKAGE_OVERRIDE_FILE="$(BR2_EXTERNAL_architest_PATH)/package_overrides/pahole.mk"
 
 BR2_LINUX_KERNEL=y
 BR2_LINUX_KERNEL_LATEST_VERSION=y
