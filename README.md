@@ -17,7 +17,7 @@ cd build_x86_64_6.0/images/
 ./start-qemu.sh
 ```
 
-The machine can then be reached with SSH.
+The machine can then be reached over SSH.
 
 ```
 ssh root@localhost -p 3366
@@ -143,7 +143,7 @@ Host qemu
 
 We've [enabled](./board/exein/common/linux.config) most kernel flags for eBPF support.
 
-We've setup the [fstap file](./board/exein/common/overlay/etc/fstab) to auto-mount BPF
+We've setup the [fstab file](./board/exein/common/overlay/etc/fstab) to auto-mount BPF
 related folders:
 
 - `/sys/fs/bpf`
