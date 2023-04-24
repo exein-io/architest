@@ -9,3 +9,4 @@ none            /sys/fs/bpf          bpf defaults 0 0
 none            /sys/kernel/debug    debugfs defaults 0 0
 none            /sys/kernel/tracing  tracefs defaults 0 0
 none            /sys/kernel/security securityfs defaults 0 0
+none            /sys/fs/cgroup  cgroup2 defaults  0 0
