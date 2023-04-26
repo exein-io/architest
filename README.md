@@ -11,9 +11,9 @@ for quickly spotting regressions.
 Download a ready to use virtual machine [from our release page](https://github.com/Exein-io/architest/releases).
 
 ```
-wget https://github.com/Exein-io/architest/releases/download/0.1/build_x86_64_5.15.tar.gz
-tar -xzf build_x86_64_6.0.tar.gz
-cd build_x86_64_6.0/images/
+wget https://github.com/Exein-io/architest/releases/download/0.2/aarch64_6.0.tar.gz
+tar -xzf aarch64_6.0.tar.gz
+cd build/aarch64_6.0/images/
 ./start-qemu.sh
 ```
 
