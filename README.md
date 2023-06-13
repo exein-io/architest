@@ -107,6 +107,13 @@ Note: `local.mk` is the default makefile override file, as specified by
 `BR2_PACKAGE_OVERRIDE_FILE`. Configurations for kernels up to 5.15 do
 override that settings to work-around a compilation issue with pahole.
 
+### Building a release
+
+The `./scripts/release.sh` script can be used to automate the creation of
+of multiple machines. For each architecture/kernel combination in that file,
+the script will call `./scripts/bootstrap.sh $ARCH $KERNEL`, run make and
+pack the results into `./build/release/$ARCH_$KERNEL.tar.gz`.
+
 ## Customizations
 
 ### Buildroot linking
