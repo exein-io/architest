@@ -39,7 +39,6 @@ case ${2} in
     QEMU_ARGS="\\
       -M malta \\
       -kernel vmlinux \\
-      -serial stdio \\
       -drive file=rootfs.ext2,format=raw \\
       -append \"rootwait root=/dev/sda\""
     ;;
