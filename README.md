@@ -23,6 +23,15 @@ The machine can then be reached over SSH.
 ssh root@localhost -p 3366
 ```
 
+If you want to download all of them, you can use [Github CLI](https://cli.github.com/):
+
+```
+gh release download -R Exein-io/architest -D release -p "*.tar.gz"
+cd release
+for file in *.tar.gz; do tar -xzf $file --one-top-level && rm $file; done
+ls
+```
+
 ## Building new machines
 
 If you need some sort of customization or the machine you need lacks a prebuilt binary,
