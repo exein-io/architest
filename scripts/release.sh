@@ -7,12 +7,16 @@ IMAGES_TO_RELEASE=$(cat <<-END
   x86_64 5.15
   x86_64 6.0
   x86_64 6.3
+  x86_64 6.6
   aarch64 5.5
   aarch64 5.15
   aarch64 6.2
+  aarch64 6.6
   riscv64 6.3
+  riscv64 6.6
   mips 5.5
   mips 6.0
+  mips 6.6
 END
 )
 
