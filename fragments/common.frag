@@ -7,18 +7,17 @@ BR2_ROOTFS_POST_IMAGE_SCRIPT="$(BR2_EXTERNAL_architest_PATH)/board/exein/common/
 # Customize busybox
 BR2_PACKAGE_BUSYBOX_CONFIG="$(BR2_EXTERNAL_architest_PATH)/board/exein/common/busybox.config"
 
+# Kernel version
 BR2_LINUX_KERNEL=y
 BR2_LINUX_KERNEL_CUSTOM_VERSION=y
 BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE="__KERNEL_VERSION__"
 
+# Kernel headers
 BR2_KERNEL_HEADERS_AS_KERNEL=n
 BR2_KERNEL_HEADERS_5_15=y
 BR2_KERNEL_HEADERS___HEADER_VERSION__=y
 
-
-
-
-#BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="$(BR2_EXTERNAL_architest_PATH)/board/exein/common/linux.config"
+# Config to run Pulsar
 BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="$(BR2_EXTERNAL_architest_PATH)/board/exein/common/__CONFIG_FILE__.config"
 
 BR2_GLOBAL_PATCH_DIR="$(BR2_EXTERNAL_architest_PATH)/patches/"
