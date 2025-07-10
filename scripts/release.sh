@@ -3,9 +3,11 @@
 IMAGES_TO_RELEASE=$(cat <<-END
   x86_64 5.15.185
   x86_64 6.1.141
+  x86_64 6.6.96
   x86_64 6.12.33
   aarch64 5.15.185
   aarch64 6.1.141
+  aarch64 6.6.96
   aarch64 6.12.33
 END
 )
